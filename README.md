@@ -8,6 +8,7 @@ A powerful personal AI agent built with **FastAPI + MCP 2.2.0 + Groq + LangGraph
 - 📍 **Location** - Lat/Lon + Google Maps link for any place
 - 🔍 **Web Search** - DuckDuckGo real-time search
 - ⚡ **MCP 2.2.0 Streamable-HTTP** - Modern MCP architecture
+- **Github connection - Connecting to github account using PAT, performing github actions and many more
 
 
 ## Setup
