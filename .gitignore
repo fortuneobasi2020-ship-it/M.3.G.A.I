@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+AI/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Env & Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Groq / Meta / WhatsApp tokens
+secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+nohup.out
+
+# FastAPI / Uvicorn
+*.pid
+
+# Uploads
+uploads/
+temp/
+tmp/
+*.jpg
+*.png
+*.jpeg
+!README.png
+
+# OS
+.DS_Store
