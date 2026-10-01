@@ -27,4 +27,5 @@ python server.py
 # Running on http://0.0.0.0:4000/mcp
 
 # Run the API
-uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+uvicorn vision3:app --host 0.0.0.0 --port 8000 --reload
+# Running on http://0.0.0.0:2000/docs - for better UI. 
