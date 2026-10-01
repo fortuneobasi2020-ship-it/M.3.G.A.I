@@ -3,10 +3,12 @@ import asyncio
 import httpx
 import urllib.parse
 import os
+import yagmail
 from dotenv import load_dotenv
 
-mcp = MCPServer("Doomsday")
 load_dotenv()
+
+mcp = MCPServer("Doomsday")
 
 @mcp.tool()
 async def weather_api(city: str) -> str:
@@ -38,7 +40,6 @@ async def find_location(place: str) -> str:
 
 @mcp.tool()
 async def github_create_repo(name: str, description: str = "", private: bool = False) -> str:
-    """Create a new GitHub repo for the authenticated user."""
     token = os.getenv("GITHUB_TOKEN")
     async with httpx.AsyncClient() as client:
         r = await client.post("https://api.github.com/user/repos",
@@ -50,7 +51,6 @@ async def github_create_repo(name: str, description: str = "", private: bool = F
 
 @mcp.tool()
 async def github_create_issue(repo: str, title: str, body: str = "") -> str:
-    """Create issue. repo format: username/repo"""
     token = os.getenv("GITHUB_TOKEN")
     async with httpx.AsyncClient() as client:
         r = await client.post(f"https://api.github.com/repos/{repo}/issues",
@@ -62,7 +62,6 @@ async def github_create_issue(repo: str, title: str, body: str = "") -> str:
 
 @mcp.tool()
 async def github_search_repos(query: str) -> str:
-    """Search GitHub repos"""
     async with httpx.AsyncClient() as client:
         r = await client.get(f"https://api.github.com/search/repositories?q={query}&per_page=5")
         data = r.json()
@@ -71,7 +70,6 @@ async def github_search_repos(query: str) -> str:
 
 @mcp.tool()
 async def github_get_user(username: str) -> str:
-    """Get GitHub user profile"""
     async with httpx.AsyncClient() as client:
         r = await client.get(f"https://api.github.com/users/{username}")
         j = r.json()
@@ -79,12 +77,23 @@ async def github_get_user(username: str) -> str:
 
 @mcp.tool()
 async def github_list_my_repos() -> str:
-    """List my own GitHub repos"""
     token = os.getenv("GITHUB_TOKEN")
     async with httpx.AsyncClient() as client:
         r = await client.get("https://api.github.com/user/repos?per_page=10&sort=updated", headers={"Authorization": f"token {token}"})
         repos = [f"{x['full_name']}: {x['html_url']}" for x in r.json()]
         return "\n".join(repos) or "No repos"
+
+@mcp.tool()
+async def send_email(owner: str, to: str, subject: str, html: str) -> str:
+    """Send emails messages to anyone worldwide"""
+    try:
+        app_password = os.getenv("APP_PASSWORD")
+        my_email = os.getenv("MY_EMAIL")
+        yag = yagmail.SMTP(my_email, app_password)
+        yag.send(to=to, subject=subject, contents=html)
+        return "Message sent successfully"
+    except Exception as e:
+        return f"Message not sent: {e}"
 
 if __name__== "__main__":
   mcp.run(transport="streamable-http", port=4000, host="0.0.0.0")
