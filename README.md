@@ -1,4 +1,4 @@
-# DOOMSDAY - AI Agent with MCP
+# M.3.G.A.I - AI Agent with MCP
 
 A powerful personal AI agent built with **FastAPI + MCP 2.2.0 + Groq + LangGraph** that can see images, search the web, check weather, and find locations.
 
@@ -9,6 +9,7 @@ A powerful personal AI agent built with **FastAPI + MCP 2.2.0 + Groq + LangGraph
 - 🔍 **Web Search** - DuckDuckGo real-time search
 - ⚡ **MCP 2.2.0 Streamable-HTTP** - Modern MCP architecture
 - **Github connection - Connecting to github account using PAT, performing github actions and many more
+- **Send Email messages 
 
 
 ## Setup
